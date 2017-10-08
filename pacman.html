@@ -1,4 +1,34 @@
 <html>
-<canvas id="canvas" width="800" height="600"></canvas>
+<canvas id="canvas" width="1200" height="900"></canvas>
+<script src="player.js"></script>
+<script>
+// Variables - define here
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+var cvs;
+var ctx;
+var fps = 60; // update rate
+// Basics - useful functions
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+function rectangle(x, y, w, h, colour){ // draw rect
+    ctx.fillStyle = colour;
+    ctx.fillRect(x, y, w, h);
+}
+// Main - everything else 
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    window.onload=function(){
+        cvs = document.getElementById('canvas');
+        ctx = cvs.getContext('2d');
 
+        var pacman = new Player(0 , 0, 10); // x, y, hp characters stats
+
+        setInterval(function(){
+            rectangle(0, 0, canvas.width, canvas.height, 'black'); // background
+        }, 1000/fps); // refresh for fps
+    }
+
+    function drawPlayer(){
+        
+    }
+
+</script>
 </html>
