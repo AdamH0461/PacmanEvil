@@ -4,9 +4,14 @@
 <script>
 // Variables - define here
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-var cvs;
-var ctx;
 var fps = 60; // update rate
+var ctx;
+var cvs;
+
+// Player
+var pacman; // initialise for later
+var pacmanRadius = 5;
+
 // Basics - useful functions
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 function rectangle(x, y, w, h, colour){ // draw rect
@@ -19,15 +24,20 @@ function rectangle(x, y, w, h, colour){ // draw rect
         cvs = document.getElementById('canvas');
         ctx = cvs.getContext('2d');
 
-        var pacman = new Player(0 , 0, 10); // x, y, hp characters stats
+        pacman = new Player(0 , 0, 10); // x, y, hp characters stats
 
         setInterval(function(){
             rectangle(0, 0, canvas.width, canvas.height, 'black'); // background
+            drawPlayer();
         }, 1000/fps); // refresh for fps
     }
 
     function drawPlayer(){
-        
+        pPos = pacman.pos
+        ctx.fillStyle = 'yellow';
+        ctx.beginPath();
+        ctx.arc(pPos.x, pPos.y, pacmanRadius, 0, Math.PI*2, true);
+        ctx.fill();
     }
 
 </script>
