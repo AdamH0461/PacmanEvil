@@ -7,11 +7,12 @@
 var fps = 60; // update rate
 var ctx;
 var cvs;
+var left = up = right = down = false; // decide if player is moving
 
 // Player
 var pacman; // initialise for later
 var pacmanRadius = 10;
-var playerSpeed = 1;
+var playerSpeed = 2;
 
 // Basics - useful functions
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -21,20 +22,19 @@ function rectangle(x, y, w, h, colour){ // draw rect
 }
 function keyDownHandler(event) {
 	kId = event.which || event.keyPressed; // key Id
-	
-	switch(kId) {
-		case 37:
-			left = true;
-			break;
+   	switch(kId) {
+    	case 37:
+    		left = true;
+    		break;
 		case 38:
-			up = true;
-			break;
-		case 39:
-			right = true;
-			break;
-		case 40:
-			down = true;
-			break;
+	    	up = true;
+	    	break;
+    	case 39:
+		    right = true;
+	    	break;
+	    case 40:
+    		down = true;
+	    	break;
 	}
 }
 function keyUpHandler(event) {
@@ -63,19 +63,33 @@ function keyUpHandler(event) {
 
 		document.addEventListener("keydown", keyDownHandler, false);
 		document.addEventListener("keyup", keyUpHandler, false);
-		var left = up = right = down = false;
 		
         pacman = new Character(0 , 0, 10); // x, y, hp characters stats
 
         setInterval(function(){
             rectangle(0, 0, canvas.width, canvas.height, 'black'); // background
             drawPlayer();
+            movePlayer();
         }, 1000/fps); // refresh for fps
     }
 	
 	function movePlayer(){
-		if 
-	}
+        pPos = pacman.pos;
+
+        switch(true){
+            case right:
+                pPos.x += playerSpeed;
+                break;
+            case left:
+                pPos.x -= playerSpeed;
+                break;
+            case up:
+                pPos.y -= playerSpeed;
+                break;
+            case down:
+                pPos.y += playerSpeed;
+        }
+    } 
 	
     function drawPlayer(){
         pPos = pacman.pos
