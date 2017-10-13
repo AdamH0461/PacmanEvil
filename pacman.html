@@ -1,6 +1,6 @@
 <html>
 <canvas id="canvas" width="1200" height="900"></canvas>
-<script src="player.js"></script>
+<script src="character.js"></script>
 <script>
 // Variables - define here
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -10,7 +10,8 @@ var cvs;
 
 // Player
 var pacman; // initialise for later
-var pacmanRadius = 5;
+var pacmanRadius = 10;
+var playerSpeed = 1;
 
 // Basics - useful functions
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -18,20 +19,64 @@ function rectangle(x, y, w, h, colour){ // draw rect
     ctx.fillStyle = colour;
     ctx.fillRect(x, y, w, h);
 }
+function keyDownHandler(event) {
+	kId = event.which || event.keyPressed; // key Id
+	
+	switch(kId) {
+		case 37:
+			left = true;
+			break;
+		case 38:
+			up = true;
+			break;
+		case 39:
+			right = true;
+			break;
+		case 40:
+			down = true;
+			break;
+	}
+}
+function keyUpHandler(event) {
+	kId = event.which || event.keyPressed; // key Id
+	
+	switch(kId) {
+		case 37:
+			left = false;
+			break;
+		case 38:
+			up = false;
+			break;
+		case 39:
+			right = false;
+			break;
+		case 40:
+			down = false;
+			break;
+	}
+}
 // Main - everything else 
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     window.onload=function(){
         cvs = document.getElementById('canvas');
         ctx = cvs.getContext('2d');
 
-        pacman = new Player(0 , 0, 10); // x, y, hp characters stats
+		document.addEventListener("keydown", keyDownHandler, false);
+		document.addEventListener("keyup", keyUpHandler, false);
+		var left = up = right = down = false;
+		
+        pacman = new Character(0 , 0, 10); // x, y, hp characters stats
 
         setInterval(function(){
             rectangle(0, 0, canvas.width, canvas.height, 'black'); // background
             drawPlayer();
         }, 1000/fps); // refresh for fps
     }
-
+	
+	function movePlayer(){
+		if 
+	}
+	
     function drawPlayer(){
         pPos = pacman.pos
         ctx.fillStyle = 'yellow';
