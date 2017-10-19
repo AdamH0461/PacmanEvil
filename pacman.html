@@ -22,8 +22,6 @@ var rows;
 var squareWidth = 40;
 // Map functions 
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
-
 // Basics - useful functions
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 function rectangle(x, y, w, h, colour){ // draw rect
@@ -130,29 +128,29 @@ function keyUpHandler(event) {
 	var rad = pacmanRadius;
 	var topE = y - rad; // top edge
 	
-	function top(g){
+	function cTop(g){
 		if(topE > g.y && topE < g.y + squareWidth){ //needs copying
 			return true;
 		}
 	}
-	if(
-	function bottom(g){
+	function cBottom(g){
 		if(g.y + rad > g.y && g.y + rad < g.y + squareWidth){
 			return true;
 		}
 	}
 	
-	function top(g){
+	function cLeft(g){
 		if(g.y - rad > g.y && g.y - rad < g.y + squareWidth){
 			return true;
 		}
 	}
 	
-	function top(g){
+	function cRight(g){
 		if(g.y - rad > g.y && g.y - rad < g.y + squareWidth){
 			return true;
 		}
 	}
+
 // Main - Everything else
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     function playerCollision(){
