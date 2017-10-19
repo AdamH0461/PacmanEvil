@@ -18,5 +18,8 @@
   "homepage": "https://github.com/AdamH0461/PacmanEvil#readme",
   "devDependencies": {
     "webpack": "^3.8.1"
+  },
+  "dependencies": {
+    "moment": "^2.19.1"
   }
 }
