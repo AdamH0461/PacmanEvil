@@ -9,14 +9,17 @@ var fps = 60; // update rate
 var ctx;
 var cvs;
 var left = up = right = down = false; // decide if player is moving
-
+var frame = 0;
 // Player
 var pacman; // initialise for later
 var pacmanRadius = 15;
 var playerSpeed = 2;
+
+// Map
 var grid;
 var columns;
 var rows;
+var squareWidth = 40;
 // Map functions 
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
@@ -62,7 +65,7 @@ function keyUpHandler(event) {
 			break;
 	}
 }
-// Main - everything else 
+// Onload - Startup
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     window.onload=function(){
         cvs = document.getElementById('canvas');
@@ -84,6 +87,9 @@ function keyUpHandler(event) {
             drawGrid();
             drawPlayer();
             movePlayer();
+			playerCollision();
+			frame ++;
+			ctx.fillText(frame, 500, 500);
         }, 1000/fps); // refresh for fps
     }
 
@@ -101,7 +107,7 @@ function keyUpHandler(event) {
 	    for(c=0; c<columns; c++){
 	    	grid[c] = [];
 	    	for(r=0;r<rows; r++){
-	    		grid[c][r] = { x: c * 40, y: r * 40, state: false};
+	    		grid[c][r] = { x: c * squareWidth, y: r * squareWidth, state: false};
 	    	}
     	}
     }
@@ -110,19 +116,56 @@ function keyUpHandler(event) {
 	    for(c=0; c<columns; c++){
 		    for(r=0; r<rows; r++){
 			    if(grid[c][r].state){
-				    rectangle(c * 40, r * 40, 40, 40, "blue");
+				    rectangle(c * squareWidth, r * squareWidth, squareWidth, squareWidth, "blue");
     			} else {
-	    			rectangle(c * 40, r * 40, 40, 40, "black");
+	    			rectangle(c * squareWidth, r * squareWidth, squareWidth, squareWidth, "black");
 		    	}
 	    	}
     	}
     }
 
-// Most of it
+//Collisions - Functions for collision detection
+	var x = pacman.pos.x;
+	var y = pacman.pos.y;
+	var rad = pacmanRadius;
+	var topE = y - rad; // top edge
+	
+	function top(g){
+		if(topE > g.y && topE < g.y + squareWidth){ //needs copying
+			return true;
+		}
+	}
+	if(
+	function bottom(g){
+		if(g.y + rad > g.y && g.y + rad < g.y + squareWidth){
+			return true;
+		}
+	}
+	
+	function top(g){
+		if(g.y - rad > g.y && g.y - rad < g.y + squareWidth){
+			return true;
+		}
+	}
+	
+	function top(g){
+		if(g.y - rad > g.y && g.y - rad < g.y + squareWidth){
+			return true;
+		}
+	}
+// Main - Everything else
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
-    function playerCollison(){
-        
+    function playerCollision(){
+		for(c=0; c<columns; c++){
+			for(r=0; r<rows; r++){
+				var g=grid[c][r]
+				if(g.state){
+					if((x - rad < g.x+squareWidth && x - rad > g.x) && y + rad < g.y+squareWidth && y - rad > g.y){
+						pacman.pos.x += playerSpeed;
+					}
+				}
+			}
+		}
     }
 
 	function movePlayer(){
